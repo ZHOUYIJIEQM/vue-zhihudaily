@@ -5,7 +5,7 @@
   "author": "ZHOUYIJIEQM <husiluanxianguser@163.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --open --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -45,6 +45,7 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
     "px2rem-loader": "^0.1.9",
+    "request": "^2.88.0",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.0.0",
     "semver": "^5.3.0",

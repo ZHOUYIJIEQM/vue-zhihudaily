@@ -1,15 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
-export default new Router({
+const RT = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'homepage',
+      component: () => import('@/views/HomePage'),
+      meta: {
+        keepAlive: true,
+        isBack: false
+      }
+    },
+    {
+      path: '/newsDetail/:id',
+      name: 'newsDetail',
+      component: () => import('@/views/newsDetail'),
+      meta: {
+        keepAlive: true,
+        isBack: false
+      }
+    },
+    {
+      path: '/newsDetail/:id/comment',
+      name: 'comment',
+      component: () => import('@/views/Comment'),
+      meta: {
+        keepAlive: false
+      }
     }
-  ]
-})
+  ],
+  scrollBehavior(to, from, savedPosition){
+    if(savedPosition){
+      return savedPosition;
+    }else{
+      return {x: 0, y: 0};
+    }
+  }
+});
+
+export default RT;
