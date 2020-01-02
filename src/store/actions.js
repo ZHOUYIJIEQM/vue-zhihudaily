@@ -10,7 +10,7 @@ export default {
       commit('setDate', res.date);
     });
   },
-  // 加入某天文章
+  // 某天文章
   getNewsBefore({state, commit}){
     let date = '';
     if(state.beforeStories.length === 0){
@@ -23,10 +23,10 @@ export default {
       commit('addBeforeStories', res)
     })
   },
-  // 获取对应文章短评
+  // 获取对应文章短评(点赞, 短评数量)
   getExtra({state, commit}, id){
     return api.getStoryExtraById(id).then(res => {
-      console.log(res)
+      // console.log(res)
       commit('setStoryExtra', res)
     })
   },

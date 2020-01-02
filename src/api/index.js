@@ -19,6 +19,7 @@ import proxy from './proxyPort.js'
 const API = {
   latest: '/news/latest',
   before: '/news/before/idNum',
+  post: '/news/idNum',
   shortComments: '/story/idNum/short-comments',
   storyExtra: '/story-extra/idNum',
   sections: '/sections',
@@ -44,8 +45,13 @@ export default {
     return ajax.get(API.latest);
   },
   // 获取往期文章
-  getBeforeById(id){
-    let url = replaceId(API.before, id);
+  getBeforeById(date){
+    let url = replaceId(API.before, date);
+    return ajax.get(url);
+  },
+  // 获取对应id的文章
+  getPost(id){
+    let url = replaceId(API.post, id);
     return ajax.get(url);
   },
   // 获取某篇文章的短评论

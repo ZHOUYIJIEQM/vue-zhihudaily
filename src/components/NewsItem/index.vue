@@ -24,7 +24,6 @@
     },
     methods: {
       goPage(id){
-        console.log(port.imgPath)
         this.$router.push({
           path: `newsDetail/${id}`
         })

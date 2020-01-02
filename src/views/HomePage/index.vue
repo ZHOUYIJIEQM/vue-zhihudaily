@@ -83,7 +83,7 @@
       ...mapMutations(['clearBeforeStories', ]),
       
       goTop(){
-        console.log('goTop')
+        console.log('goTop');
       },
 
       toggleSidebar(){
@@ -99,15 +99,17 @@
           });
         });
       },
+
       pullDown(){
         // this.clearBeforeStories();
+        console.log('下拉刷新！');
         this.getNewsLatest().then(() => {
           this.downRefresh = false;
           this.clearBeforeStories();
           this.loadBefore();
           this.scroll.refresh();
           this.scroll.finishPullDown();
-        })
+        });
       },
 
       loadDate(){
@@ -126,7 +128,7 @@
                   easeTime: 300
                 },
                 pullUpLoad: {
-                  threshold: 40, // 在上拉到距离底部 40px 时，触发 pullingUp 事件
+                  threshold: 120, // 在上拉到距离底部 60px 时，触发 pullingUp 事件
                 },
                 pullDownRefresh: {
                   threshold: 30, // 当下拉到超过顶部 30px 时，触发 pullingDown 事件
@@ -139,18 +141,19 @@
                 this.loading = true;
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 300);
+                upDebounce = setTimeout(this.loadBefore, 200);
                 this.scroll.finishPullUp();
               });
 
               let downDebounce = null;
               this.scroll.on('pullingDown', () => {
-                console.log('下拉刷新！');
                 this.downRefresh = true
                 // 事件防抖
                 downDebounce && clearTimeout(downDebounce);
-                downDebounce = setTimeout(this.pullDown, 300);
+                downDebounce = setTimeout(this.pullDown, 200);
               });
+
+
             });
           });
         }

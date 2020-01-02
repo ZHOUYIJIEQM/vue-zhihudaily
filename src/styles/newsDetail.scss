@@ -1,0 +1,71 @@
+.news-detail{
+  .container{
+    margin-bottom: 40px;
+    .img-place-holder{
+      height: 0!important;
+    }
+  }
+  .question{
+    padding: 15px!important;
+    .question-title{
+      display: none;
+    }
+    .content{
+      margin: 20px 0 20px;
+    }
+    .view-more {
+      margin-bottom: 25px;
+      text-align: center;
+      border-radius: 15px;
+      overflow: hidden;
+
+      a {
+        width: 100%;
+        display: block;
+        color: white;
+        font-weight: 600;
+        background: #00a2ed;
+      }
+    }
+    a{
+      font-size: 12px;
+    }
+  }
+  p{
+    font-size: 13px;
+    line-height: 20px;
+    margin: 15px 0 !important;
+    font-weight: 400;
+    color: #545454;
+  }
+  span.bio{
+    display:none;
+  }
+  .meta{
+    display: flex;
+    align-items: center;
+  }
+  .meta .author {
+    font-size: 12px;
+    color: #888;
+  }
+  .meta .avatar, .comment-meta .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  a.originUrl {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 12px;
+    color: #00a2ed;
+  }
+  b, strong, .highlight .k, .highlight .o, .highlight .gs, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .ow{
+    color: black;
+  }
+}
+.bottombar{
+  position: fixed;
+  // bottom: 50px;
+  bottom: 0;
+  width: 100%;
+}
