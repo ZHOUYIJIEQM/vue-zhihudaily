@@ -2,9 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 0.25rem;
-  line-height: 1.12rem;
+  padding-top: 5px;
   width: 100%;
+  position: relative;
+  top: -15px;
 }
 .infinite-rotate-text{
   margin-left: 0.2rem;
