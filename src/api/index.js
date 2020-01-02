@@ -1,4 +1,5 @@
 import axios from 'axios'
+import proxy from './proxyPort.js'
 
 /*
   // 最新文章
@@ -22,12 +23,10 @@ const API = {
   storyExtra: '/story-extra/idNum',
   sections: '/sections',
   section: '/section/idNum',
-  apiPath: 'http://127.0.0.1:8010',
-  imgPath: 'http://127.0.0.1:8011/img',
 };
 
 const ajax = axios.create({
-  baseURL: API.apiPath,  
+  baseURL: proxy.apiPath,  
 });
 // 响应拦截器
 ajax.interceptors.response.use(res => {

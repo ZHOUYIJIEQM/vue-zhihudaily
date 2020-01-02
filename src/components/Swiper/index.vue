@@ -17,6 +17,7 @@
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
   import {mapState} from 'vuex'
+  import port from '@/api/proxyPort'
 
   export default {
     components: {swiper, swiperSlide},
@@ -43,7 +44,7 @@
             }
           }
         },
-        imgPath: 'http://127.0.0.1:8011/img/', // 图片使用代理地址
+        imgPath: port.imgPath, // 图片使用代理地址
       }
     },
     methods: {

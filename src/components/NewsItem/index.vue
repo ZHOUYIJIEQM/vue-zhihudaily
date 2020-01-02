@@ -6,23 +6,25 @@
         <p class="post-hint" v-if="item.hint">{{item.hint}}</p>
       </div>
       <div class="post-img" v-if="item.images">
-        <img :src="imgPath+item.images" alt="" />
+        <img :src="imgPath+item.images[0]" alt="" />
       </div>
     </div>
   </div>
 </template>
 <script>
+  import port from '@/api/proxyPort'
   export default {
     props: {
       story: Array,
     },
     data(){
       return {
-        imgPath: 'http://127.0.0.1:8011/img/',
+        imgPath: port.imgPath,
       }
     },
     methods: {
       goPage(id){
+        console.log(port.imgPath)
         this.$router.push({
           path: `newsDetail/${id}`
         })

@@ -126,24 +126,20 @@
                   easeTime: 300
                 },
                 pullUpLoad: {
-                  threshold: -10, // 在上拉到超过底部 30px 时，触发 pullingUp 事件
+                  threshold: 40, // 在上拉到距离底部 40px 时，触发 pullingUp 事件
                 },
                 pullDownRefresh: {
-                  threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-                  stop: 30 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
+                  threshold: 30, // 当下拉到超过顶部 30px 时，触发 pullingDown 事件
+                  stop: 25 // 刷新数据的过程中，回弹停留在距离顶部还有 25px 的位置
                 },
               });
 
-              
               let upDebounce = null;
               this.scroll.on('pullingUp', () => {
-
                 this.loading = true;
-
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 1500);
-
+                upDebounce = setTimeout(this.loadBefore, 300);
                 this.scroll.finishPullUp();
               });
 
@@ -153,7 +149,7 @@
                 this.downRefresh = true
                 // 事件防抖
                 downDebounce && clearTimeout(downDebounce);
-                downDebounce = setTimeout(this.pullDown, 1500);
+                downDebounce = setTimeout(this.pullDown, 300);
               });
             });
           });
