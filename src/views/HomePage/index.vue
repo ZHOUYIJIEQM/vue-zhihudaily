@@ -26,8 +26,8 @@
               </div>
               <newsItem :story="item.stories"></newsItem>
             </div>
-            <bottomLoading :loading="loading"></bottomLoading>
           </div>
+          <bottomLoading :loading="loading"></bottomLoading>
         </div>
       </div>
     </div>
@@ -91,8 +91,15 @@
             this.loading = false;
             this.scroll.refresh();
           });
-
         });
+      },
+      pullDown(){
+        this.clearBeforeStories();
+        this.getNewsLatest().then(() => {
+          this.refreshing = false;
+          this.loadBefore();
+          this.scroll.refresh();
+        })
       },
 
       loadDate(){
@@ -104,19 +111,21 @@
               this.scroll = new BScroll(this.$refs.wrapper, {
                 click: true,
                 scrollY: true,
+                bounce: {top: true, bottom: false},
                 bounceTime: 300,
                 swipeBounceTime: 300,
+                probeType: 3,
                 mouseWheel: {
                   speed: 20,
                   invert: false,
                   easeTime: 300
                 },
                 pullUpLoad: {
-                  threshold: -10, // 在上拉到超过底部 30px 时，触发 pullingUp 事件
+                  threshold: -0, // 在上拉到超过底部 30px 时，触发 pullingUp 事件
                 },
                 pullDownRefresh: {
                   threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
-                  // stop: 20 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
+                  stop: 30 // 刷新数据的过程中，回弹停留在距离顶部还有 20px 的位置
                 },
               });
 
@@ -126,13 +135,23 @@
 
                 this.loading = true;
 
-
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 500);
+                upDebounce = setTimeout(this.loadBefore, 2500);
 
                 this.scroll.finishPullUp();
-                
+              });
+
+              let downDebounce = null;
+              this.scroll.on('pullingDown', () => {
+                console.log('下拉刷新！');
+                this.refreshing = true;
+
+                // 事件防抖
+                downDebounce && clearTimeout(downDebounce);
+                downDebounce = setTimeout(this.pullDown, 500);
+
+                this.scroll.finishPullDown();
               });
 
 
