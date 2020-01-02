@@ -1,7 +1,9 @@
 <template>
   <div class="home-page">
     <!-- 头部 -->
-    <dailyHeader @click.native="goTop"></dailyHeader>
+    <div class="daily-header">
+      <dailyHeader @click.native="goTop"></dailyHeader>
+    </div>
     <!-- 左右移动加载动画 -->
     <div class="loading" v-if="refreshing">
       <span class="left"></span>
@@ -11,6 +13,9 @@
     <!-- 滚动区域 -->
     <div class="wrapper" ref="wrapper">
       <div class="content">
+        <div class="down-refresh">
+          <bottomLoading :loading="downRefresh" :loadingText="`正在刷新...`"></bottomLoading>
+        </div>
         <div class="main-page">
           <dailySwiper></dailySwiper>
           <div class="post">
@@ -27,8 +32,8 @@
               <newsItem :story="item.stories"></newsItem>
             </div>
           </div>
-          <bottomLoading :loading="loading"></bottomLoading>
         </div>
+        <bottomLoading :loading="loading"></bottomLoading>
       </div>
     </div>
   </div>
@@ -49,6 +54,7 @@
         refreshing: true,
         scroll: null,
         loading: false,
+        downRefresh: false,
         sidebarIsShow: false,
         isFirstEnter: false,
       }
@@ -94,11 +100,13 @@
         });
       },
       pullDown(){
-        this.clearBeforeStories();
+        // this.clearBeforeStories();
         this.getNewsLatest().then(() => {
-          this.refreshing = false;
+          this.downRefresh = false;
+          this.clearBeforeStories();
           this.loadBefore();
           this.scroll.refresh();
+          this.scroll.finishPullDown();
         })
       },
 
@@ -111,9 +119,6 @@
               this.scroll = new BScroll(this.$refs.wrapper, {
                 click: true,
                 scrollY: true,
-                bounce: {top: true, bottom: false},
-                bounceTime: 300,
-                swipeBounceTime: 300,
                 probeType: 3,
                 mouseWheel: {
                   speed: 20,
@@ -121,7 +126,7 @@
                   easeTime: 300
                 },
                 pullUpLoad: {
-                  threshold: -0, // 在上拉到超过底部 30px 时，触发 pullingUp 事件
+                  threshold: -10, // 在上拉到超过底部 30px 时，触发 pullingUp 事件
                 },
                 pullDownRefresh: {
                   threshold: 50, // 当下拉到超过顶部 50px 时，触发 pullingDown 事件
@@ -137,7 +142,7 @@
 
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 2500);
+                upDebounce = setTimeout(this.loadBefore, 1500);
 
                 this.scroll.finishPullUp();
               });
@@ -145,17 +150,11 @@
               let downDebounce = null;
               this.scroll.on('pullingDown', () => {
                 console.log('下拉刷新！');
-                this.refreshing = true;
-
+                this.downRefresh = true
                 // 事件防抖
                 downDebounce && clearTimeout(downDebounce);
-                downDebounce = setTimeout(this.pullDown, 500);
-
-                this.scroll.finishPullDown();
+                downDebounce = setTimeout(this.pullDown, 1500);
               });
-
-
-
             });
           });
         }

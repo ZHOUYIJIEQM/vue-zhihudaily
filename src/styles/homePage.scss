@@ -2,17 +2,30 @@ $yellow: #FFD300;
 $blue: #5B7492;
 $gray: #acb9c8;
 
-.header{
+.daily-header{
   position: fixed;
   width: 100%;
+  top: 0;
   z-index: 100;
 }
 .swi-slide{
   padding-top: 1.7rem;
 }
-
+.home-page{
+  padding-top: 50px;
+}
 .wrapper{
-  .content{padding-top: 50px;}
+  .content{
+    .down-refresh{
+      width: 100%;
+      height: 50px;
+    }
+    position: relative;
+    .down-refresh{
+      position: absolute;
+      top: 0;
+    }
+  }
 
 }
 
