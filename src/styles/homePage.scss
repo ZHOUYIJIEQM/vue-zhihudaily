@@ -12,7 +12,7 @@ $gray: #acb9c8;
   padding-top: 1.7rem;
 }
 .home-page{
-  padding-top: 50px;
+  // padding-top: 50px;
 }
 .wrapper{
   .content{
@@ -22,8 +22,11 @@ $gray: #acb9c8;
     }
     position: relative;
     .down-refresh{
-      position: absolute;
-      top: 0;
+      // position: absolute;
+      // top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
     }
   }
 
