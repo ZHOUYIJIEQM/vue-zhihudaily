@@ -6,13 +6,19 @@
     </div>
     <div class="comment-content">
       <div class="content-list" v-for="(item, index) in comments" :key="index">
-        
+        <div class="comment-pic">
+          <img :src="HANDLERIMG(item.avatar)" alt="" />
+        </div>
+        <div class="comment-author">{{item.author}}</div>
+        <div class="comment-content">{{item.content}}</div>
+        <div class="comment-time">{{item.time}}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
   import api from '@/api'
+  import {HANDLERIMG} from '@/utils/index.js'
   export default {
     data(){
       return {
@@ -24,6 +30,8 @@
       this.getComment(this.$route.params.id)
     },
     methods: {
+      HANDLERIMG,
+
       back(){
         this.$router.back();
       },
