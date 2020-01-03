@@ -73,8 +73,8 @@
     },
     beforeRouteEnter(to, from, next){
       if(from.name === 'newsDetail'){
-        to.meta.isBakc = true;
-      }
+        to.meta.isBack = true;
+      } 
       next();
     },
     methods: {
@@ -83,7 +83,9 @@
       ...mapMutations(['clearBeforeStories', ]),
       
       goTop(){
-        console.log('goTop');
+        if(this.scroll){
+          this.scroll.scrollTo(0, 0, 500);
+        }
       },
 
       toggleSidebar(){

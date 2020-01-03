@@ -8,7 +8,7 @@ const RT = new Router({
   routes: [
     {
       path: '/',
-      name: 'homepage',
+      name: 'homePage',
       component: () => import('@/views/HomePage'),
       meta: {
         keepAlive: true,
@@ -21,6 +21,7 @@ const RT = new Router({
       component: () => import('@/views/newsDetail'),
       meta: {
         keepAlive: true,
+        // keepAlive: false,
         isBack: false
       }
     },

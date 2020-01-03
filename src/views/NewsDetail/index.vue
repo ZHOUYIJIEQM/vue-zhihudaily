@@ -50,13 +50,29 @@
         storyExtra: {},
       }
     },
+    created(){
+      this.isFirstEnter = true;
+    },
     activated(){
       if(!this.$route.meta.isBack || this.isFirstEnter){
+        // console.log('进入')
         this.getPost(this.$route.params.id);
+        this.isFirstEnter = false;
       }
     },
+    deactivated(){
+      // console.log('切换')
+    },
+    beforeRouteEnter(to, from, next){
+      if(from.name === 'homePage'){
+        to.meta.isBack = false;
+      }else if(from.name === 'comment'){
+        to.meta.isBack = true;
+      }
+      next();
+    },
     methods: {
-      // ...mapActions(['']) 不写到actions了，太麻烦
+      // ...mapActions(['']) 不用写到actions了，太麻烦
       
       getPost(id){
         api.getPost(id).then((res) => {
@@ -71,7 +87,7 @@
 
       getExtra(id){
         api.getStoryExtraById(id).then( res => {
-          // console.log(JSON.stringify(res, null, '  '))
+          console.log(JSON.stringify(res, null, '  '))
           this.storyExtra = res;
         })
       },
@@ -93,7 +109,6 @@
           }
         })
       },
-
 
     },
   }
