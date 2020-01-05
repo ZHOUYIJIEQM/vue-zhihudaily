@@ -224,7 +224,7 @@
       height: 35px;
       display: flex;
       align-items: center;
-      background-color: #d8d8d8;
+      background-color: #f1f1f1;
       position: fixed;
       bottom: 0;
       left: 0;
