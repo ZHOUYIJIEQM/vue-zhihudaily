@@ -1,0 +1,73 @@
+$t1height: 45px;
+$t2height: 40px;
+
+.sidebar{
+  &>div{
+    height: $t1height;
+    line-height: $t1height;
+    padding-left: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: grey;
+    transition: all 0.3s;
+  }
+  .isActive{
+    background-color: #06ade8;
+    color: white;
+    border-left: 10px solid #1c89af;
+  }
+  .home{
+    height: $t2height;
+    line-height: $t2height;
+    font-size: 16px;
+    font-weight: 500;
+    color: #545454;
+    padding-left: 15px;
+    border-bottom: 1px solid #f3f3f3;
+  }
+  .home-page{
+    
+  }
+  ul{
+    .section-item{
+      height: $t2height;
+      line-height: $t2height;
+      transition: all 0.3s;
+      padding-left: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .title{
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 500;
+        color: #545454;
+        padding-left: 10px;
+      }
+      .pic {
+        width: 30px;
+        height: 30px;
+
+        img{
+          width: 100%;
+
+        }
+      }
+    }
+    .itemSelect{
+      .title{
+        font-weight: bold;
+      }
+    }
+    
+  }
+  .itemSelect{
+    border-left: 5px solid #06ade8;
+    background-color: #f3f3f3;
+    font-weight: bold;
+  }
+}

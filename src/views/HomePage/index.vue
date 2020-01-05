@@ -2,7 +2,7 @@
   <div class="home-page">
     <!-- 头部 -->
     <div class="daily-header">
-      <dailyHeader @click.native="goTop"></dailyHeader>
+      <dailyHeader @click.native="goTop" @showSidebar="toggleSidebar"></dailyHeader>
     </div>
     <!-- 左右移动加载动画 -->
     <div class="loading" v-if="refreshing">
@@ -16,7 +16,7 @@
         <div class="down-refresh">
           <bottomLoading :loading="downRefresh" :loadingText="`正在刷新...`"></bottomLoading>
         </div>
-        <div class="main-page">
+        <div class="main-page" v-if="pageShow === 'homepage'">
           <dailySwiper></dailySwiper>
           <div class="post">
             <!-- 今日 -->
@@ -33,13 +33,26 @@
             </div>
           </div>
         </div>
+        <div class="sections-page" v-else-if="pageShow === 'sections'">
+          <newsItem :story="sectionById"></newsItem>
+        </div>
         <bottomLoading :loading="loading"></bottomLoading>
       </div>
     </div>
+
+
+    <transition name="fadeLeft">
+      <div class="sidebar-menu" v-show="sidebarIsShow">
+        <sidebarMenu @handleSideMenu="handleSideMenu"></sidebarMenu>
+      </div>
+    </transition>
+    <div class="sidebar-mask" @click="toggleSidebar" v-show="sidebarIsShow"></div>
+
   </div>
 </template>
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex'
+  import api from '@/api'
   import BScroll from 'better-scroll'
 
   export default {
@@ -48,6 +61,7 @@
       dailySwiper: () => import('@/components/Swiper'),
       bottomLoading: () => import('@/components/BottomLoading'),
       newsItem: () => import('@/components/NewsItem'),
+      sidebarMenu: () => import('@/components/sidebarMenu')
     },
     data(){
       return {
@@ -57,6 +71,8 @@
         downRefresh: false,
         sidebarIsShow: false,
         isFirstEnter: false,
+        pageShow: 'homepage',
+        sectionById: [],
       }
     },
     computed: {
@@ -124,6 +140,7 @@
                 click: true,
                 scrollY: true,
                 probeType: 3,
+                bounceTime: 350,
                 mouseWheel: {
                   speed: 20,
                   invert: false,
@@ -143,7 +160,7 @@
                 this.loading = true;
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 200);
+                upDebounce = setTimeout(this.loadBefore, 300);
                 this.scroll.finishPullUp();
               });
 
@@ -152,11 +169,26 @@
                 this.downRefresh = true
                 // 事件防抖
                 downDebounce && clearTimeout(downDebounce);
-                downDebounce = setTimeout(this.pullDown, 200);
+                downDebounce = setTimeout(this.pullDown, 300);
               });
 
 
             });
+          });
+        }
+      },
+
+      handleSideMenu(str){
+        // console.log(str)
+        if(str === 'homepage'){
+          this.pageShow = 'homepage';
+          this.toggleSidebar();
+        }else if(str.page === 'sections'){
+          api.getSectionById(str.id).then(res => {
+            this.pageShow = 'sections';
+            console.log(res)
+            this.sectionById = res.stories;
+            this.toggleSidebar();
           });
         }
       }

@@ -87,7 +87,7 @@
 
       getExtra(id){
         api.getStoryExtraById(id).then( res => {
-          console.log(JSON.stringify(res, null, '  '))
+          // console.log(JSON.stringify(res, null, '  '))
           this.storyExtra = res;
         })
       },

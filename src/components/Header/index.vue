@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <slot name="menu"></slot>
-    <div class="date">
+    <div class="date" @click.stop="$emit('showSidebar')">
       <div class="d">{{setDate}}</div>
       <div class="m">{{months[setMonth]}}</div>
     </div>
@@ -42,6 +42,7 @@
           this.lifeTips = '知乎日报'
         }
       },
+      
     },
     mounted(){
       this.getDate();

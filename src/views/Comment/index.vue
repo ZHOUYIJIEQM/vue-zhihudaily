@@ -84,7 +84,7 @@
         this.$set(this.isShow, num, 1)
       },
       mask(num){
-        console.log('mask click');
+        // console.log('mask click');
         this.isShow.splice(num, 1, 0);
       },
 
@@ -221,7 +221,7 @@
       margin-bottom: 50px;
     }
     .comment-footer{
-      height: 40px;
+      height: 35px;
       display: flex;
       align-items: center;
       background-color: #d8d8d8;
