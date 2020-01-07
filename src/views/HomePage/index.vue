@@ -81,7 +81,6 @@
       this.$route.meta.isBakc = false;
     },
     beforeRouteEnter(to, from, next){
-      console.log('===')
       if(from.name === 'newsDetail'){
         to.meta.isBack = true;
       } 
