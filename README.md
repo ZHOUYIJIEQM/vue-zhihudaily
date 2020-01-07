@@ -22,9 +22,10 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-## [在线预览](http://139.180.164.150:3000/)  
 
-## <a id="预览图">预览图</a>
+
+## <a id="预览图">预览</a>
+- [在线预览(在开发者工具中用手机预览)](http://139.180.164.150:3000/)  
 - [首页](#首页)  
 - [上拉加载](#上拉加载)  
 - [下拉刷新](#下拉刷新)  
