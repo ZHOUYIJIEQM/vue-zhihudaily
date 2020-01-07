@@ -94,7 +94,8 @@
           position: relative;
           top: -3px;
           padding-left: 3px;
-          font-size: 8px;
+          font-size: 10px;
+          font-weight: 600;
         }
       }
 

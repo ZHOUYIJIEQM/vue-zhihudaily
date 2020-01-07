@@ -206,6 +206,8 @@
         .comment-content{
           padding-top: 8px;
           color: black;
+          font-size: 12px;
+          font-weight: 600;
         }
         .comment-time{
           padding-top: 15px;

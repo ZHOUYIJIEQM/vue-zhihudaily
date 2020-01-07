@@ -151,7 +151,7 @@
                 },
                 pullDownRefresh: {
                   threshold: 30, // 当下拉到超过顶部 30px 时，触发 pullingDown 事件
-                  stop: 25 // 刷新数据的过程中，回弹停留在距离顶部还有 25px 的位置
+                  stop: 30 // 刷新数据的过程中，回弹停留在距离顶部还有 25px 的位置
                 },
               });
 
