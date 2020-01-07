@@ -109,6 +109,7 @@
 
       loadBefore(){
         console.log('上拉加载！');
+        this.loading = true
         this.getNewsBefore().then(() => {
           this.$nextTick(() => {
             this.loading = false;
@@ -148,7 +149,7 @@
                   easeTime: 300
                 },
                 pullUpLoad: {
-                  threshold: 120, // 在上拉到距离底部 60px 时，触发 pullingUp 事件
+                  threshold: 200, // 在上拉到距离底部 60px 时，触发 pullingUp 事件
                 },
                 pullDownRefresh: {
                   threshold: 30, // 当下拉到超过顶部 30px 时，触发 pullingDown 事件
@@ -158,10 +159,12 @@
 
               let upDebounce = null;
               this.scroll.on('pullingUp', () => {
-                this.loading = true;
+                
                 // 事件防抖
                 upDebounce && clearTimeout(upDebounce);
-                upDebounce = setTimeout(this.loadBefore, 300);
+                if(!this.loading){
+                  upDebounce = setTimeout(this.loadBefore, 300);
+                }
                 this.scroll.finishPullUp();
               });
 
