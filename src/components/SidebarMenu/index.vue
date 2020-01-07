@@ -3,8 +3,7 @@
     <div class="home-page" @click="SelectSections('homepage')" :class="{isActive: isSelect==='homepage'}">
       每日推荐
     </div>
-    <p class="home" 
-      :class="{itemSelect: gohome}" 
+    <p class="home itemSelect" 
       v-show="showHome"
       @click="goHome"
     >首页</p>
