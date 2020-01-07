@@ -1,13 +1,9 @@
 # 模仿知乎日报App
-<<<<<<< HEAD
-## 知乎日报api: [参考](https://github.com/ZHOUYIJIEQM/zhihudaily/wiki/api%E5%88%86%E6%9E%90)
-=======
-### 知乎日报api: [参考](https://github.com/ZHOUYIJIEQM/zhihudaily/wiki/api%E5%88%86%E6%9E%90)
+### 知乎日报api: [参考](https://github.com/ZHOUYIJIEQM/zhihudaily/wiki/api%E5%88%86%E6%9E%90)  
 ### [在线预览(pc请在开发者工具中用手机预览)](http://139.180.164.150:3000/)  
->>>>>>> f592f61ad954680202c9392f85245c17f0f209d4
 用vue, vue-router, vuex, axios写的移动版知乎日报,主要包括了日报的每日推荐,日报各个栏目。  
 组件包括了轮播,首页头部,侧边栏,分享模块,加载提示,文章底部条,文章列表。  
-因为知乎的api限制跨域,所以用node做代理,项目运行前需要先运行代理:
+因为知乎的api限制跨域,所以用node做代理,项目运行前需要先运行代理:  
 ```
 node proxy.js
 ```
@@ -28,12 +24,8 @@ npm run build
 npm run build --report
 ```
 
-<<<<<<< HEAD
-## <a id="预览图">预览图</a>
-=======
 
-## <a id="预览图">预览</a>
->>>>>>> f592f61ad954680202c9392f85245c17f0f209d4
+## <a id="预览图">预览</a>  
 - [首页](#首页)  
 - [上拉加载](#上拉加载)  
 - [下拉刷新](#下拉刷新)  
@@ -57,10 +49,7 @@ npm run build --report
 ### <a id="文章分享">[文章分享](#预览图)</a>
 ![文章分享](./preview/文章页分享.png)
 ### <a id="评论页面">[评论页面](#预览图)</a>
-<<<<<<< HEAD
-![评论页面](./preview/评论页.png)
-=======
 ![评论页面](./preview/评论页.png)  
 
 仅用于学习使用!
->>>>>>> f592f61ad954680202c9392f85245c17f0f209d4
+
