@@ -22,5 +22,8 @@ export default {
   clearBeforeStories(state){
     state.beforeStories = [];
   },
+  setRefreshing(state, data){
+    state.refreshing = data;
+  }
   
 }

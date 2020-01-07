@@ -1,15 +1,10 @@
 <template>
-  <div class="home-page">
+  <div class="home-page" v-show="!refreshing">
     <!-- 头部 -->
     <div class="daily-header">
       <dailyHeader @click.native="goTop" @showSidebar="toggleSidebar"></dailyHeader>
     </div>
-    <!-- 左右移动加载动画 -->
-    <div class="loading" v-if="refreshing">
-      <span class="left"></span>
-      <span class="middle"></span>
-      <span class="right"></span>
-    </div>
+    
     <!-- 滚动区域 -->
     <div class="wrapper" ref="wrapper">
       <div class="content">
@@ -40,7 +35,6 @@
       </div>
     </div>
 
-
     <transition name="fadeLeft">
       <div class="sidebar-menu" v-show="sidebarIsShow">
         <sidebarMenu @handleSideMenu="handleSideMenu"></sidebarMenu>
@@ -65,7 +59,6 @@
     },
     data(){
       return {
-        refreshing: true,
         scroll: null,
         loading: false,
         downRefresh: false,
@@ -76,7 +69,7 @@
       }
     },
     computed: {
-      ...mapState(['todayStories', 'beforeStories', ])
+      ...mapState(['todayStories', 'beforeStories', 'refreshing'])
     },
     created(){
       this.isFirstEnter = true;
@@ -88,15 +81,22 @@
       this.$route.meta.isBakc = false;
     },
     beforeRouteEnter(to, from, next){
+      console.log('===')
       if(from.name === 'newsDetail'){
         to.meta.isBack = true;
       } 
       next();
     },
+    beforeRouteLeave (to, from, next) {
+      if(to.name === 'newsDetail'){
+        this.setRefreshing(true);
+      }
+      next();
+    },
     methods: {
       ...mapActions(['getNewsLatest', 'getNewsBefore', ]),
 
-      ...mapMutations(['clearBeforeStories', ]),
+      ...mapMutations(['clearBeforeStories', 'setRefreshing']),
       
       goTop(){
         if(this.scroll){
@@ -133,8 +133,10 @@
       loadDate(){
         if(!this.scroll){
           this.getNewsLatest().then(() => {
-            this.refreshing = false;
             this.loadBefore();
+            setTimeout(()=>{
+              this.setRefreshing(false);
+            }, 500)
             this.$nextTick(() => {
               this.scroll = new BScroll(this.$refs.wrapper, {
                 click: true,
@@ -171,7 +173,6 @@
                 downDebounce && clearTimeout(downDebounce);
                 downDebounce = setTimeout(this.pullDown, 300);
               });
-
 
             });
           });

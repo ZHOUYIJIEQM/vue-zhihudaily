@@ -1,45 +1,42 @@
 <template>
-  <div class="comment-page" v-show="comments.length>0">
-    <div class="comment-header">
-      <div class="comment-back iconfont icon-fanhui" @click="back"></div>
-      <div class="comment-num">{{commentNum}} 条评论</div>
-    </div>
-    <div class="comments-content">
-      <div class="content-list" v-for="(item, index) in comments" :key="index">
-        <div class="comment-pic">
-          <img :src="HANDLERIMG(item.avatar)" alt="" />
-        </div>
-        <div class="comment-comments">
-          <div class="comment-author">
-            <div class="author-name">{{item.author}}</div>
-            <div class="comment-more">
-              <!-- <pre>
-                  =====
-                  {{typeof isShow[index]}}
-                  =====
-                </pre> -->
-              <span class="iconfont icon-htmal5icon26" @click="show(index)"></span>
-              <div class="more-content" v-show="isShow[index]">
-                
-                <p @touchstart="copyComment(index)" @touchend="tend" :class="{active: p1isActive}">复制</p>
-                <p @touchstart="p2isActive = !p2isActive" @touchend="p2isActive = !p2isActive; isShow.splice(0)" :class="{active: p2isActive}">举报</p>
-              </div>
-              <div class="mask" @click.stop="mask(index)" v-show="isShow[index]"></div>
-            </div>
+  <div v-show="!refreshing">
+    <div class="comment-page" v-show="comments.length>0">
+      <div class="comment-header">
+        <div class="comment-back iconfont icon-fanhui" @click="back"></div>
+        <div class="comment-num">{{commentNum}} 条评论</div>
+      </div>
+      <div class="comments-content">
+        <div class="content-list" v-for="(item, index) in comments" :key="index">
+          <div class="comment-pic">
+            <img :src="HANDLERIMG(item.avatar)" alt="" />
           </div>
-          <div class="comment-content" :ref="'content'+index">{{item.content}}</div>
-          <div class="comment-time">{{HANDLERTIME(item.time)}}</div>
+          <div class="comment-comments">
+            <div class="comment-author">
+              <div class="author-name">{{item.author}}</div>
+              <div class="comment-more">
+                <span class="iconfont icon-htmal5icon26" @click="show(index)"></span>
+                <div class="more-content" v-show="isShow[index]">
+                  
+                  <p @touchstart="copyComment(index)" @touchend="tend" :class="{active: p1isActive}">复制</p>
+                  <p @touchstart="p2isActive = !p2isActive" @touchend="p2isActive = !p2isActive; isShow.splice(0)" :class="{active: p2isActive}">举报</p>
+                </div>
+                <div class="mask" @click.stop="mask(index)" v-show="isShow[index]"></div>
+              </div>
+            </div>
+            <div class="comment-content" :ref="'content'+index">{{item.content}}</div>
+            <div class="comment-time">{{HANDLERTIME(item.time)}}</div>
+          </div>
+          
         </div>
-        
       </div>
-    </div>
-    <div class="all-comment">已显示全部评论</div>
-    <div class="comment-footer">
-      <div class="your-pic">
-        <span data-v-2f029f00="" class="iconfont icon-zhihu"></span>
-      </div>
-      <div class="your-comment">
-        <input type="text" placeholder="说说你的看法..." />
+      <div class="all-comment">已显示全部评论</div>
+      <div class="comment-footer">
+        <div class="your-pic">
+          <span data-v-2f029f00="" class="iconfont icon-zhihu"></span>
+        </div>
+        <div class="your-comment">
+          <input type="text" placeholder="说说你的看法..." />
+        </div>
       </div>
     </div>
   </div>
@@ -59,6 +56,11 @@
     },
     mounted(){
       this.getComment(this.$route.params.id)
+    },
+    computed: {
+      refreshing(){
+        return this.$store.state.refreshing;
+      }
     },
     methods: {
       HANDLERIMG,
@@ -100,6 +102,9 @@
         api.getShortCommentsById(id).then( (res) => {
           // console.log(res)
           this.comments = res.comments;
+          setTimeout(()=>{
+            this.$store.commit('setRefreshing', false)
+          }, 500)
         })
       }
     }

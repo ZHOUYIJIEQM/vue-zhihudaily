@@ -1,5 +1,5 @@
 <template>
-  <div class="news-detail">
+  <div class="news-detail" v-show="!refreshing">
     <link rel="stylesheet" :href="story.css"/>
     <div class="container">
       <div class="top" v-if="story.image">
@@ -50,6 +50,11 @@
         storyExtra: {},
       }
     },
+    computed: {
+      refreshing(){
+        return this.$store.state.refreshing;
+      }
+    },
     created(){
       this.isFirstEnter = true;
     },
@@ -60,14 +65,17 @@
         this.isFirstEnter = false;
       }
     },
-    deactivated(){
-      // console.log('切换')
-    },
     beforeRouteEnter(to, from, next){
       if(from.name === 'homePage'){
         to.meta.isBack = false;
       }else if(from.name === 'comment'){
         to.meta.isBack = true;
+      }
+      next();
+    },
+    beforeRouteLeave (to, from, next) {
+      if(to.name === 'comment'){
+        this.$store.commit('setRefreshing', true);
       }
       next();
     },
@@ -89,6 +97,9 @@
         api.getStoryExtraById(id).then( res => {
           // console.log(JSON.stringify(res, null, '  '))
           this.storyExtra = res;
+          setTimeout(()=>{
+            this.$store.commit('setRefreshing', false)
+          }, 500)
         })
       },
 

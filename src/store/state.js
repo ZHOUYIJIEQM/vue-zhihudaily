@@ -6,4 +6,5 @@ export default {
   storyExtra: {},
   sections: [],
   section: {},
+  refreshing: true
 }
