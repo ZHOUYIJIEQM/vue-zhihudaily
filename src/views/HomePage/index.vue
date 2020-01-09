@@ -55,7 +55,7 @@
       dailySwiper: () => import('@/components/Swiper'),
       bottomLoading: () => import('@/components/BottomLoading'),
       newsItem: () => import('@/components/NewsItem'),
-      sidebarMenu: () => import('@/components/sidebarMenu')
+      sidebarMenu: () => import('@/components/SidebarMenu')
     },
     data(){
       return {
@@ -109,7 +109,7 @@
 
       loadBefore(){
         console.log('上拉加载！');
-        this.loading = true
+        
         this.getNewsBefore().then(() => {
           this.$nextTick(() => {
             this.loading = false;
@@ -159,10 +159,10 @@
 
               let upDebounce = null;
               this.scroll.on('pullingUp', () => {
-                
                 // 事件防抖
-                upDebounce && clearTimeout(upDebounce);
                 if(!this.loading){
+                  this.loading = true;
+                  upDebounce && clearTimeout(upDebounce);
                   upDebounce = setTimeout(this.loadBefore, 300);
                 }
                 this.scroll.finishPullUp();

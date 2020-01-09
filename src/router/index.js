@@ -18,7 +18,7 @@ const RT = new Router({
     {
       path: '/newsDetail/:id',
       name: 'newsDetail',
-      component: () => import('@/views/newsDetail'),
+      component: () => import('@/views/NewsDetail'),
       meta: {
         keepAlive: true,
         // keepAlive: false,
