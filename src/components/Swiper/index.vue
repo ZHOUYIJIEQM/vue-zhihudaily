@@ -33,6 +33,7 @@
           pagination: {
             el: '.swiper-pagination'
           },
+          nested: true,
           on: {
             tap: function(){
               var realIndex = this.realIndex;
