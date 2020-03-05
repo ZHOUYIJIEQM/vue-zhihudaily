@@ -1,7 +1,9 @@
 <template>
   <header class="header">
-    <slot name="menu"></slot>
-    <div class="date" @click.stop="$emit('showSidebar')">
+    <div class="menu">
+      <i class="icon-htmal5icon35 iconfont" @click.stop="$emit('showSidebar')"></i>
+    </div>
+    <div class="date">
       <div class="d">{{setDate}}</div>
       <div class="m">{{months[setMonth]}}</div>
     </div>

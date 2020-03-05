@@ -6,5 +6,6 @@ export default {
   storyExtra: {},
   sections: [],
   section: {},
-  refreshing: true
+  refreshing: true,
+  newsDetailId: 0,
 }

@@ -12,7 +12,9 @@
           <bottomLoading :loading="downRefresh" :loadingText="`正在刷新...`"></bottomLoading>
         </div>
         <div class="main-page" v-if="pageShow === 'homepage'">
-          <dailySwiper></dailySwiper>
+          <div class="d-swiper">
+            <dailySwiper></dailySwiper>
+          </div>
           <div class="post">
             <!-- 今日 -->
             <div class="today-list">
@@ -69,33 +71,23 @@
       }
     },
     computed: {
-      ...mapState(['todayStories', 'beforeStories', 'refreshing'])
+      ...mapState(['todayStories', 'beforeStories', 'refreshing', 'newsDetailId'])
     },
+    
     created(){
       this.isFirstEnter = true;
     },
+
     activated(){
       if(!this.$route.meta.isBakc || this.isFirstEnter){
         this.loadDate();
       }
-      this.$route.meta.isBakc = false;
     },
-    beforeRouteEnter(to, from, next){
-      if(from.name === 'newsDetail'){
-        to.meta.isBack = true;
-      } 
-      next();
-    },
-    beforeRouteLeave (to, from, next) {
-      if(to.name === 'newsDetail'){
-        this.setRefreshing(true);
-      }
-      next();
-    },
+
     methods: {
       ...mapActions(['getNewsLatest', 'getNewsBefore', ]),
 
-      ...mapMutations(['clearBeforeStories', 'setRefreshing']),
+      ...mapMutations(['clearBeforeStories', 'setRefreshing', 'setNewsDetailId']),
       
       goTop(){
         if(this.scroll){
@@ -108,7 +100,7 @@
       },
 
       loadBefore(){
-        console.log('上拉加载！');
+        // console.log('上拉加载！');
         
         this.getNewsBefore().then(() => {
           this.$nextTick(() => {
@@ -120,7 +112,7 @@
 
       pullDown(){
         // this.clearBeforeStories();
-        console.log('下拉刷新！');
+        // console.log('下拉刷新！');
         this.getNewsLatest().then(() => {
           this.downRefresh = false;
           this.clearBeforeStories();
@@ -134,9 +126,9 @@
         if(!this.scroll){
           this.getNewsLatest().then(() => {
             this.loadBefore();
-            setTimeout(()=>{
-              this.setRefreshing(false);
-            }, 500)
+            // setTimeout(()=>{
+            //   this.setRefreshing(false);
+            // }, 500)
             this.$nextTick(() => {
               this.scroll = new BScroll(this.$refs.wrapper, {
                 click: true,
@@ -189,7 +181,7 @@
         }else if(str.page === 'sections'){
           api.getSectionById(str.id).then(res => {
             this.pageShow = 'sections';
-            console.log(res)
+            // console.log(res)
             this.sectionById = res.stories;
             this.toggleSidebar();
           });

@@ -27,8 +27,19 @@
         this.$router.push({
           path: `newsDetail/${id}`
         })
+        this.$store.commit('setNewsDetailId', id);
       }
-    }
+    },
+    computed:{
+      newsDetailId(){
+        return this.$store.state.newsDetailId;
+      }
+    },
+    watch:{
+      newsDetailId(){
+        this.$store.commit('setRefreshing', true);
+      }
+    },
   }
 </script>
 <style lang="scss" scoped>

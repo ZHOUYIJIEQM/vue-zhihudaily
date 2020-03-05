@@ -3,7 +3,7 @@
     <swiper-slide class="slide" v-for="(slide, index) in swiperStories" :key="index">
       <!-- <router-link :to="{ name: 'newsDetail', params: { id: slide.id } }"> -->
         <div class="mask" style="color: white;"></div>
-        <img :src="imgPath+slide.image" alt="" class="img" />
+        <img v-if="slide.image" :src="imgPath+slide.image" alt="" class="img" />
         <div class="title">
           <div class="post-title">{{slide.title}}</div>
           <div class="post-hint">{{slide.hint}}</div>
@@ -14,16 +14,12 @@
   </swiper>
 </template>
 <script>
-  import 'swiper/dist/css/swiper.css'
-  import {swiper, swiperSlide} from 'vue-awesome-swiper'
-  import {mapState} from 'vuex'
+
   import port from '@/api/proxyPort'
+  import api from '@/api'
 
   export default {
-    components: {swiper, swiperSlide},
-    computed: {
-      ...mapState(['swiperStories'])
-    },
+
     data(){
       let self = this;
       return {
@@ -45,13 +41,23 @@
           }
         },
         imgPath: port.imgPath, // 图片使用代理地址
+        swiperStories: [],
       }
     },
+
+    mounted(){
+      api.getLatest().then(res => {
+        this.swiperStories = res.top_stories;
+        this.$store.commit('setRefreshing', false);
+      })
+    },
+
     methods: {
       toNewsDetail(id){
         this.$router.push({
           path: `newsDetail/${id}`
         });
+        this.$store.commit('setNewsDetailId', id);
       }
     }
   }

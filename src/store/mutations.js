@@ -24,6 +24,8 @@ export default {
   },
   setRefreshing(state, data){
     state.refreshing = data;
+  },
+  setNewsDetailId(state, id){
+    state.newsDetailId = id;
   }
-  
 }

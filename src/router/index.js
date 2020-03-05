@@ -12,7 +12,7 @@ const RT = new Router({
       component: () => import('@/views/HomePage'),
       meta: {
         keepAlive: true,
-        isBack: false
+        // isBack: false
       }
     },
     {
@@ -22,7 +22,7 @@ const RT = new Router({
       meta: {
         keepAlive: true,
         // keepAlive: false,
-        isBack: false
+        // isBack: false
       }
     },
     {

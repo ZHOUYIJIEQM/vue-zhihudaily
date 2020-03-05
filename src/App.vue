@@ -19,9 +19,6 @@ export default {
       return this.$store.state.refreshing;
     }
   },
-  updated(){
-    // console.log('app updated', this.refreshing)
-  }
 }
 </script>
 

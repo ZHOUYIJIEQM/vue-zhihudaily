@@ -1,5 +1,5 @@
 <template>
-  <div class="news-detail" v-show="!refreshing">
+  <div class="news-detail" v-show="!refreshing && story">
     <link rel="stylesheet" :href="story.css"/>
     <div class="container">
       <div class="top" v-if="story.image">
@@ -65,14 +65,7 @@
         this.isFirstEnter = false;
       }
     },
-    beforeRouteEnter(to, from, next){
-      if(from.name === 'homePage'){
-        to.meta.isBack = false;
-      }else if(from.name === 'comment'){
-        to.meta.isBack = true;
-      }
-      next();
-    },
+
     beforeRouteLeave (to, from, next) {
       if(to.name === 'comment'){
         this.$store.commit('setRefreshing', true);
@@ -99,7 +92,7 @@
           this.storyExtra = res;
           setTimeout(()=>{
             this.$store.commit('setRefreshing', false)
-          }, 500)
+          }, 250)
         })
       },
 

@@ -10,6 +10,10 @@ import '@/styles/iconfont/iconfont.css'
 import 'mint-ui/lib/style.css'
 import {Toast} from 'mint-ui'
 
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$toast = Toast

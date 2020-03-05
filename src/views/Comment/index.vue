@@ -104,7 +104,7 @@
           this.comments = res.comments;
           setTimeout(()=>{
             this.$store.commit('setRefreshing', false)
-          }, 500)
+          }, 250)
         })
       }
     }
@@ -259,6 +259,34 @@
           display: inline-block;
         }
       }
+    }
+  }
+
+  .search-enter-active, .search-leave-active {
+    transition: all 0.3s;
+  }
+  .search-enter, .search-leave-to {
+    transform: translate3d(50%, 0, 0);
+    opacity: 0;
+  }
+
+  .fadeInRight-enter-active {
+    animation: fadeInRight .5s;
+  }
+  .fadeInRight-leave-active {
+    animation: fadeInRight .5s reverse;
+  }
+  @keyframes fadeInRight {
+    from {
+      opacity: 0.8;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
     }
   }
 </style>
